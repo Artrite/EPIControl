@@ -77,13 +77,13 @@ No terminal digite: mvn spring-boot:run
 
 //Em seguida no Postman
 //Comando para listar todos os colaboradores
-GET http://localhost:8080/colaborador
+GET http://localhost:8080/colaboradores
 
 // Comando para buscar colaborador por ID
-GET http://localhost:8080/colaborador/{id}
+GET http://localhost:8080/colaboradores/{id}
 
 //Comando para criar novo colaborador
-POST http://localhost:8080/colaborador
+POST http://localhost:8080/colaboradores
 Content-Type: application/json
 
 {
@@ -94,7 +94,7 @@ Content-Type: application/json
 }
 
 //Comando para atualizar colaborador
-PUT http://localhost:8080/colaborador/{id}
+PUT http://localhost:8080/colaboradores/{id}
 Content-Type: application/json
 
 {
@@ -105,4 +105,5 @@ Content-Type: application/json
 }
 
 //Comando para deletar colaborador
-DELETE http://localhost:8080/colaborador/{id}
+
+DELETE http://localhost:8080/colaboradores/{id}
