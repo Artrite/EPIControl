@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<link rel="stylesheet" href="findAllUser.css">
+<head>
+  <meta charset="UTF-8">
+  <title>Usuários - EPI Control</title>
+</head>
+<body>
+  <h1>EPI Control</h1>
+  <p>PAINEL COLABORADOR</p>
+
+  <!-- Botão fake KKK , atualiza sozin-->
+  <button onclick="carregarUsuarios()">Atualizar</button>
+
+  <div class="painel">Usuários Cadastrados
+    <table id="tabela-usuarios">
+      <thead>
+        <tr>
+          <th style="width: 40px;">ID</th>
+          <th style="width: 100px;">Nome</th>
+          <th style="width: 80px;">CPF</th>
+          <th style="width: 160px;">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- As linhas serão preenchidas dinamicamente pelo JS -->
+      </tbody>
+    </table>
+  </div>
+  <script src="findAllUser.js"></script>
+</body>
+</html>

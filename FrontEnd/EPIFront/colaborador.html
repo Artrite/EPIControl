@@ -1,0 +1,61 @@
+<head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <link rel="stylesheet" href="base.css" />
+    <link rel="stylesheet" href="colaborador.css"/>
+    <script src="base.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        carregarLayoutBase();
+        document.getElementById("page-content").innerHTML = `
+          <div class="container">
+        <h1>Cadastro de Usuário</h1>
+        <p class="sub-text">Já foi registrado? Entre <a href="#" style="color: rgb(16, 87, 145);">aqui</a></p>
+
+        <form>
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" placeholder="Seu Nome">
+
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="seuemail@email.com">
+
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" placeholder="********">
+
+            <label for="idade">Idade</label>
+            <input type="number" id="idade" placeholder="00">
+
+            <label for="cpf">CPF</label>
+            <input id="cpf" placeholder="000.000.000-00" autocomplete="off" maxlength="14" oninput="this.value = this.value.replace(/[^0-9.-]/g, '')" required>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+        `;
+      });
+    // Máscara de CPF
+        const cpfInput = document.getElementById('cpf');
+
+        cpfInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, ""); // remove tudo que não é número
+            value = value.slice(0, 11); // limita a 11 dígitos
+
+            let formatted = "";
+            if (value.length > 0) {
+                formatted = value.substring(0, 3);
+            }
+            if (value.length >= 4) {
+                formatted += "." + value.substring(3, 6);
+            }
+            if (value.length >= 7) {
+                formatted += "." + value.substring(6, 9);
+            }
+            if (value.length >= 10) {
+                formatted += "-" + value.substring(9, 11);
+            }
+
+            e.target.value = formatted;
+        });
+    </script>
+  </head>
+  

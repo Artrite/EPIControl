@@ -1,0 +1,23 @@
+<head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <link rel="stylesheet" href="base.css" />
+    <script src="base.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        carregarLayoutBase();
+        document.getElementById("page-content").innerHTML = `
+          <h1>Bem-vindo, João!</h1>
+          <p>Esta é a tela inicial do sistema.</p>
+          <div>
+            <h3>Notícias</h3>
+            <ul>
+              <li>Sistema atualizado em 13/09/2025</li>
+              <li>Nova funcionalidade de controle de EPI</li>
+            </ul>
+          </div>
+        `;
+      });
+    </script>
+  </head>
+  
