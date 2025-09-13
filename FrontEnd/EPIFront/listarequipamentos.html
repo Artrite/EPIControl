@@ -1,0 +1,73 @@
+<head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <link rel="stylesheet" href="base.css" />
+    <link rel="stylesheet" href="listarcolaborador.css"/>
+    <script src="base.js"></script>
+    <script src="listarcolaborador.js"></script>
+</head>
+<body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          carregarLayoutBase();
+          document.getElementById("page-content").innerHTML = `
+            <h1>EPI Control</h1>
+            <p>Equipamentos Cadastrados</p>
+
+            <!-- Tabela -->
+            <div class="painel">
+                <input type="text" id="busca" placeholder="Buscar por ID..." class="input-busca" />
+                <button onclick="carregarUsuarios()">🔍</button>
+                <table id="tabela-usuarios">
+                <thead>
+                    <tr>
+                    <th style="width: 40px;">ID</th>
+                    <th style="width: 100px;">Nome</th>
+                    <th style="width: 30px;">Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- As linhas serão preenchidas dinamicamente pelo JS -->
+                </tbody>
+                </table>
+            </div>
+            `;
+            carregarUsuarios();
+        });
+        const usuariosMock = [
+    { id: 1, nome: "João Silva", cpf: "123.456.789-00", email: "joao@email.com" },
+    { id: 2, nome: "Maria Oliveira", cpf: "987.654.321-00", email: "maria@email.com" },
+    { id: 3, nome: "Carlos Souza", cpf: "111.222.333-44", email: "carlos@email.com" }
+  ];
+
+  function carregarUsuarios() {
+    const busca = document.getElementById("busca").value.toLowerCase();
+    const tabela = document.querySelector("#tabela-usuarios tbody");
+    tabela.innerHTML = "";
+
+    const filtrados = usuariosMock.filter(u => u.id.toString().includes(busca));
+
+    filtrados.forEach(usuario => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${usuario.id}</td>
+        <td>${usuario.nome}</td>
+        <td>${usuario.cpf}</td>
+        <td>${usuario.email}</td>
+        <td>
+          <button class="btn-editar" onclick="editarUsuario(${usuario.id})">✏️</button>
+          <button class="btn-excluir" onclick="excluirUsuario(${usuario.id})">🗑️</button>
+        </td>
+      `;
+      tabela.appendChild(tr);
+    });
+  }
+
+  function editarUsuario(id) {
+    alert("Editar usuário ID " + id);
+  }
+  function excluirUsuario(id) {
+    alert("Excluir usuário ID " + id);
+  }
+      </script>
+</body>

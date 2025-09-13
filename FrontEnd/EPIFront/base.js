@@ -46,4 +46,20 @@ function carregarLayoutBase() {
       </div>
     `;
   }
+  function fecharModal() {
+    document.getElementById("modal-confirmacao").style.display = "none";
+  }
+  function abrirModal() {
+    document.getElementById("modal-confirmacao").style.display = "flex";
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form");
   
+    if (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault(); // só para teste local, remova depois se tiver backend
+        abrirModal();
+      });
+    }
+  });
+      

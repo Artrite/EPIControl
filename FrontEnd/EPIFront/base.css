@@ -98,7 +98,16 @@
   /* CONTEÚDO */
   .content {
     flex: 1;
+    display: flex;                
+    justify-content: center;      
+    align-items: center;          
     padding: 20px;
     overflow-y: auto;
     background-color: #fff;
+    display: flex;
+    flex-direction: column;     /* 👈 Deixa tudo em coluna */
+    align-items: center;        /* 👈 Centraliza no eixo horizontal */
+    gap: 20px;                  /* 👈 Espaço entre os elementos */
+    padding: 30px;
   }
+  

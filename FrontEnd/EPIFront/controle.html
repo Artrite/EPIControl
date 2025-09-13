@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastro - Controle de Empréstimo</title>
+  <style>
+    /* Base do seu base.css (simplificado para o exemplo) */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    .header {
+      height: 50px;
+      background-color: #d9e1f2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-name {
+      font-size: 14px;
+    }
+
+    .user-icon {
+      width: 25px;
+      height: 25px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .layout {
+      display: flex;
+      height: calc(100vh - 50px);
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: #f4f6fa;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid #ccc;
+      padding: 15px;
+    }
+
+    .menu-section {
+      margin-bottom: 20px;
+    }
+
+    .menu-section-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .menu-item {
+      margin-left: 10px;
+      margin-bottom: 5px;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .logout-btn {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: none;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .content {
+      flex: 1;
+      display: flex;                
+      justify-content: center;      
+      align-items: center;          
+      padding: 30px;
+      background-color: #fff;
+      flex-direction: column; 
+      gap: 20px;
+    }
+
+    /* Estilos para o formulário de cadastro */
+    .form-container {
+      border: 1px solid #ccc;
+      border-radius: 15px;
+      padding: 30px 40px;
+      width: 400px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      background-color: #fafafa;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #555;
+      font-size: 14px;
+    }
+
+    select, input[type="text"], input[type="date"] {
+      width: 100%;
+      padding: 8px 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+
+    select:focus, input[type="text"]:focus, input[type="date"]:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    .double-inputs {
+      display: flex;
+      gap: 15px;
+    }
+
+    .double-inputs > div {
+      flex: 1;
+    }
+
+    button.save-btn {
+      width: 100%;
+      padding: 10px 0;
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button.save-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <h1>Home</h1>
+    </div>
+    <div class="header-right">
+      <span class="user-name">Joao Silva</span>
+      <div class="user-icon" title="Usuário">JS</div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <div>
+        <div class="menu-section">
+          <div class="menu-section-title">Cadastros</div>
+          <div class="menu-item">Colaborador</div>
+          <div class="menu-item">Equipamentos</div>
+        </div>
+
+        <div class="menu-section">
+          <div class="menu-section-title">Ação</div>
+          <div class="menu-item">Controle de EPI</div>
+        </div>
+
+        <div class="menu-section">
+          <div class="menu-section-title">Relatórios</div>
+          <div class="menu-item">Empréstimo</div>
+        </div>
+
+        <div class="menu-section">
+          <div class="menu-section-title">Configurações</div>
+          <div class="menu-item">Perfil</div>
+          <div class="menu-item">Sistema</div>
+        </div>
+      </div>
+      <button class="logout-btn">Sair</button>
+    </nav>
+
+    <main class="content">
+      <form class="form-container">
+        <h2>Cadastro</h2>
+
+        <label for="equipamento">Equipamento</label>
+        <select id="equipamento" name="equipamento">
+          <option value="">Selecione</option>
+          <option value="equip1">Equipamento 1</option>
+          <option value="equip2">Equipamento 2</option>
+        </select>
+
+        <label for="colaborador">Colaborador</label>
+        <select id="colaborador" name="colaborador">
+          <option value="">Selecione</option>
+          <option value="colab1">Colaborador 1</option>
+          <option value="colab2">Colaborador 2</option>
+        </select>
+
+        <div class="double-inputs">
+          <div>
+            <label for="data-emprestimo">Data do empréstimo</label>
+            <input type="date" id="data-emprestimo" name="data-emprestimo" />
+          </div>
+          <div>
+            <label for="data-devolucao">Data prevista da devolução</label>
+            <input type="date" id="data-devolucao" name="data-devolucao" />
+          </div>
+        </div>
+
+        <label for="status">Status</label>
+        <select id="status" name="status">
+          <option value="">Selecione</option>
+          <option value="ativo">Ativo</option>
+          <option value="pendente">Pendente</option>
+          <option value="devolvido">Devolvido</option>
+        </select>
+
+        <label for="condicoes">Condições do equipamento no empréstimo</label>
+        <input type="text" id="condicoes" name="condicoes" placeholder="Descreva as condições" />
+
+        <button type="submit" class="save-btn">SALVAR</button>
+      </form>
+    </main>
+  </div>
+</body>
+</html>
