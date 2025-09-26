@@ -7,59 +7,45 @@ git clone <https://github.com/Artrite/EPIControl.git>
 cd EPIControl-main
 
 //Crie o Banco Mysql
-CREATE TABLE Colaborador 
+
+CREATE TABLE colaborador 
 ( 
  id_colaborador INT PRIMARY KEY,  
- cpf_colaborador INT,  
- nome_colaborador INT,  
- idade_colaborador INT,  
+ cpf varchar(14) not null,
+ nome varchar(45) not null,
+ email varchar(45) not null,
+ senha varchar(45) not null
 ); 
 
-CREATE TABLE Usuario 
+CREATE TABLE usuario 
 ( 
  id_usuario INT PRIMARY KEY,  
- cpf_usuario INT,  
- nome_usuario INT,  
- senha_usuario INT,  
- idade_usuario INT,  
+ cpf varchar(14) not null,
+ nome varchar(45) not null,
+ email varchar(45) not null,
+ senha varchar(45) not null 
 ); 
 
-CREATE TABLE Equipamento 
+CREATE TABLE equipamento 
 ( 
  id_equipamento INT PRIMARY KEY,  
- nome_equipamento INT,  
- descricao_equipamento INT,  
- tipo_equipamento INT,  
- quantidade_equipamento INT,  
+ nome varchar(45),  
+ quantidade INT
 ); 
 
-CREATE TABLE Emprestimo 
+CREATE TABLE emprestimo 
 ( 
- data_emprestimo INT,  
- fk_id_usuario INT,  
- fk_id_colaborador INT,  
- fk_id_equipamento INT,  
+ data_emprestimo DATETIME(),
+ data_devolucao DATETIME(),
+ idusuario INT,  
+ idcolaborador INT,  
+ idequipamento INT,  
  id_emprestimo INT PRIMARY KEY,  
- idColaborador INT,  
+ FOREIGN KEY (idusuario) REFERENCES usuario(idusuario),
+ FOREIGN KEY (idcolaborador) REFERENCES colaborador(idcolaborador),
+ FOREIGN KEY (idequipamento) REFERENCES equipamento(idequipamento)
+  
 ); 
-
-CREATE TABLE Realizando 
-( 
- id_emprestimo INT PRIMARY KEY,  
- id_usuario INT PRIMARY KEY,  
-); 
-
-CREATE TABLE Rel 
-( 
- id_equipamento INT PRIMARY KEY,  
- id_emprestimo INT PRIMARY KEY,  
-); 
-
-ALTER TABLE Emprestimo ADD FOREIGN KEY(idColaborador) REFERENCES Colaborador (idColaborador)
-ALTER TABLE Realizando ADD FOREIGN KEY(id_emprestimo) REFERENCES Emprestimo (id_emprestimo)
-ALTER TABLE Realizando ADD FOREIGN KEY(id_usuario) REFERENCES Usuario (id_usuario)
-ALTER TABLE Rel ADD FOREIGN KEY(id_equipamento) REFERENCES Equipamento (id_equipamento)
-ALTER TABLE Rel ADD FOREIGN KEY(id_emprestimo) REFERENCES Emprestimo (id_emprestimo)
 ------------------------------------------------------------------------------------------------------------
 
 //Configure a conexão com o banco(application.properties);
@@ -107,3 +93,4 @@ Content-Type: application/json
 //Comando para deletar colaborador
 
 DELETE http://localhost:8080/colaboradores/{id}
+
