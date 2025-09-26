@@ -8,8 +8,8 @@ cd EPIControl-main
 
 //Crie o Banco Mysql
 
-CREATE TABLE colaborador 
-( 
+CREATE TABLE colaborador (
+ 
  id_colaborador INT PRIMARY KEY,  
  cpf varchar(14) not null,
  nome varchar(45) not null,
@@ -17,8 +17,8 @@ CREATE TABLE colaborador
  senha varchar(45) not null
 ); 
 
-CREATE TABLE usuario 
-( 
+CREATE TABLE usuario (
+
  id_usuario INT PRIMARY KEY,  
  cpf varchar(14) not null,
  nome varchar(45) not null,
@@ -26,15 +26,15 @@ CREATE TABLE usuario
  senha varchar(45) not null 
 ); 
 
-CREATE TABLE equipamento 
-( 
+CREATE TABLE equipamento (
+
  id_equipamento INT PRIMARY KEY,  
  nome varchar(45),  
  quantidade INT
 ); 
 
-CREATE TABLE emprestimo 
-( 
+CREATE TABLE emprestimo (
+
  data_emprestimo DATETIME(),
  data_devolucao DATETIME(),
  idusuario INT,  
@@ -93,4 +93,5 @@ Content-Type: application/json
 //Comando para deletar colaborador
 
 DELETE http://localhost:8080/colaboradores/{id}
+
 
