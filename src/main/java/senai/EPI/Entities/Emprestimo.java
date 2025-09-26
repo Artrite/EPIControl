@@ -2,12 +2,17 @@ package senai.EPI.Entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Emprestimo implements Serializable{
@@ -21,19 +26,24 @@ public class Emprestimo implements Serializable{
 
     private LocalDateTime data_emprestimo;
 
+    private LocalDateTime data_devolucao;
+
     private int quantidade;
 
-    //@OneToMany
-    //@JoinColumn(name = "idcolaborador", nullable = false)
-    //private Colaborador colaborador;
+    @ManyToOne
+    @JoinColumn(name = "idcolaborador", nullable = false)
+    private Colaborador colaborador;
 
-    //@ManyToMany
-    //@JoinColumn(name = "idequipamento", nullable = false)
-    //private Equipamento equipamento;
+    @ManyToMany
+    @JoinTable(
+    joinColumns = @JoinColumn(name = "idemprestimo", nullable = false),
+    inverseJoinColumns = @JoinColumn(name = "idequipamento")
+    )
+    private List<Equipamento> equipamento;
     
-   // @OneToMany
-    //@JoinColumn(name = "idusuario", nullable = false)
-    //private Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name = "idusuario", nullable = false)
+    private Usuario usuario;
 
 
     public Long getId() {
@@ -42,6 +52,14 @@ public class Emprestimo implements Serializable{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDateTime getData_devolucao() {
+        return data_devolucao;
+    }
+
+    public void setData_devolucao(LocalDateTime data_devolucao) {
+        this.data_devolucao = data_devolucao;
     }
 
     public LocalDateTime getData_emprestimo() {
@@ -60,27 +78,27 @@ public class Emprestimo implements Serializable{
         this.quantidade = quantidade;
     }
 
-    //public Colaborador getColaborador() {
-   //     return colaborador;
-   // }
+    public Colaborador getColaborador() {
+        return colaborador;
+    }
 
-   // public void setColaborador(Colaborador colaborador) {
-   //     this.colaborador = colaborador;
-   // }
+    public void setColaborador(Colaborador colaborador) {
+        this.colaborador = colaborador;
+    }
 
-   // public Equipamento getEquipamento() {
-    //    return equipamento;
-   // }
+    public List<Equipamento> getEquipamento() {
+        return equipamento;
+    }
 
-   // public void setEquipamento(Equipamento equipamento) {
-   //     this.equipamento = equipamento;
-   // }
+    public void setEquipamento(List<Equipamento> equipamento) {
+        this.equipamento = equipamento;
+  }
 
-   // public Usuario getUsuario() {
-   //     return usuario;
-   // }
+    public Usuario getUsuario() {
+       return usuario;
+   }
 
-   // public void setUsuario(Usuario usuario) {
-   //     this.usuario = usuario;
-   // }
+    public void setUsuario(Usuario usuario) {
+       this.usuario = usuario;
+    }
 }

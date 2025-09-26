@@ -1,0 +1,69 @@
+<head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/equipamento.css"/>
+    <script src="scripts/base.js"></script>
+</head>
+
+  <body>
+    <script>
+     document.addEventListener("DOMContentLoaded", function () {
+     carregarLayoutBase();
+      document.getElementById("page-content").innerHTML = `
+    <div class="container">
+      <h1>Cadastro de Equipamento</h1>
+
+       <form id="formulario">
+         <label for="nome">Nome</label>
+         <input type="text" id="nome" placeholder="Nome Equipamento">
+
+         <label for="quantidade">Quantidade</label>
+         <input type="number" id="quantidade" placeholder="00">
+
+         <button type="submit">Cadastrar</button>
+       </form>
+    </div>
+  `;
+
+  const formulario = document.getElementById('formulario');
+  const inome = document.getElementById('nome');
+  const iquantidade = document.getElementById('quantidade');
+
+  function limpar() {
+    inome.value = "";
+    iquantidade.value = "";
+  }
+
+  async function cadastrar() {
+    try {
+      const res = await fetch("http://localhost:8080/equipamento", {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({
+          nome: inome.value,
+          quantidade: iquantidade.value,
+        })
+      });
+
+      if (res.ok) {
+        alert("Equipamento cadastrado com sucesso!");
+        limpar();
+      }
+    } catch (err) {
+      alert("Erro ao cadastrar equipamento: " + err.message);
+    }
+  }
+
+  formulario.addEventListener('submit', function(event) {
+    event.preventDefault();
+    cadastrar();   
+  });
+});
+      
+      </script>
+</body>
+  

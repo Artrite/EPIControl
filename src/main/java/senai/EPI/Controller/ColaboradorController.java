@@ -34,7 +34,7 @@ public class ColaboradorController {
     }
 
     @GetMapping( "/{id}")
-    public Colaborador findByID(Long id) {
+    public Colaborador findByID(@PathVariable Long id) {
         return colaboradorService.findById(id);
     }
 

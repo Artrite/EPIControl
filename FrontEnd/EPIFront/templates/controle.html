@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastro - Controle de Empréstimo</title>
+  <script src="scripts/base.js" defer></script>
+  <link rel="stylesheet" href="styles/base.css" />
+  <link rel="stylesheet" href="styles/controle.css" />
+    
+</head>
+<body>
+    <script>document.addEventListener("DOMContentLoaded", async function () {
+  carregarLayoutBase();
+
+  const pageContent = document.getElementById("page-content");
+
+  pageContent.innerHTML = `
+    <main class="content">
+      <form class="form-container">
+        <h2>Cadastro Empréstimo</h2>
+
+        <label for="equipamento">Equipamento</label>
+        <select id="equipamento" name="equipamento">
+          <option value="">Carregando...</option>
+        </select>
+
+        <label for="colaborador">Colaborador</label>
+        <select id="colaborador" name="colaborador">
+          <option value="">Carregando...</option>
+        </select>
+
+        <!-- resto do form igual -->
+        <button type="submit" class="save-btn">SALVAR</button>
+      </form>
+    </main>
+  `;
+
+  // Carregar equipamentos
+  try {
+    const resp = await fetch("http://localhost:8080/equipamento/status/disponiveis");
+    const equipamentos = await resp.json();
+
+    const selectEquip = document.getElementById("equipamento");
+    selectEquip.innerHTML = ""; // limpa as opções
+
+    if (equipamentos.length === 0) {
+      const option = document.createElement("option");
+      option.value = "";
+      option.textContent = "Nenhum equipamento disponível";
+      selectEquip.appendChild(option);
+    } else {
+      equipamentos.forEach(eq => {
+        const option = document.createElement("option");
+        option.value = eq.id;
+        option.textContent = `${eq.nome} (Qtd: ${eq.quantidade})`;
+        selectEquip.appendChild(option);
+      });
+    }
+  } catch (err) {
+    console.error("Erro ao carregar equipamentos:", err);
+  }
+
+  // Carregar colaboradores
+  try {
+    const resp = await fetch("http://localhost:8080/colaboradores");
+    const colaboradores = await resp.json();
+
+    const selectColab = document.getElementById("colaborador");
+    selectColab.innerHTML = "";
+
+    colaboradores.forEach(colab => {
+      const option = document.createElement("option");
+      option.value = colab.id;
+      option.textContent = colab.nome;
+      selectColab.appendChild(option);
+    });
+  } catch (err) {
+    console.error("Erro ao carregar colaboradores:", err);
+  }
+});
+    </script>
+</body>

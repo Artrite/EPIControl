@@ -1,0 +1,105 @@
+<head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/colaborador.css"/>
+    <script src="scripts/base.js" defer></script>
+    <script src="https://unpkg.com/imask" defer></script>
+  </head>
+<body>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        carregarLayoutBase();
+
+        document.getElementById("page-content").innerHTML = `
+            <div class="container">
+                <h1>Cadastro de Colaborador</h1>
+                <form id="formulario">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" placeholder="Seu Nome">
+                    
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="seuemail@email.com">
+                    
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" placeholder="********">
+                    
+                    <label for="cpf">CPF</label>
+                    <input type="text" id="cpf" placeholder="000.000.000-00">
+                    
+                    <button type="submit">Cadastrar</button>
+                    <button type="button" onclick="window.location.href='listarcolaborador.html'">Colaboradores Cadastrados</button>
+                </form>
+            </div>
+        `;
+
+        const formulario = document.getElementById('formulario');
+        const inome = document.getElementById('nome');
+        const iemail = document.getElementById('email');
+        const isenha = document.getElementById('senha');
+        const icpf = document.getElementById('cpf');
+        
+        // Máscara para o campo CPF
+        IMask(icpf, {
+            mask: '000.000.000-00'
+        });
+        
+        function limpar() {
+            inome.value = "";
+            iemail.value = "";
+            isenha.value = "";
+            icpf.value = "";
+        }
+      
+        async function cadastrar() {
+            try {
+                const res = await fetch("http://localhost:8080/colaboradores", {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                        nome: inome.value,
+                        email: iemail.value,
+                        senha: isenha.value,
+                        cpf: icpf.value
+                    })
+                });
+
+                if (res.ok) {
+                    alert("Colaborador cadastrado com sucesso!");
+                    limpar();
+                }
+            } catch (err) {
+                alert("Erro ao cadastrar colaborador: " + err.message);
+            }
+        }
+
+        formulario.addEventListener('submit', function (event) {
+            event.preventDefault(); 
+
+
+            if(!inome.value || !iemail.value || !isenha.value || !icpf.value) {
+                alert("Por favor, preencha todos os campos.");
+                return;
+
+            } else if(!iemail.value.endsWith("@gmail.com")){ 
+                alert("Por favor, insira um email válido.");
+                return;
+
+            } else if (isenha.value.length < 8) {
+                alert("A senha deve ter no mínimo 8 caracteres.");
+                return;
+                
+             } else if (icpf.value.length !== 14) {
+                alert("Por favor, insira um CPF válido no formato 000.000.000-00.");
+                return;
+            }
+            cadastrar();
+        });
+    });
+    </script>
+</body>
+   

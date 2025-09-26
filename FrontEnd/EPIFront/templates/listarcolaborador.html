@@ -1,0 +1,91 @@
+<head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <link rel="stylesheet" href="base.css" />
+    <link rel="stylesheet" href="listarcolaborador.css"/>
+    <script src="scripts/base.js"></script>
+    <script src="scripts/listarcolaborador.js"></script>
+</head>
+<body>
+    <script>
+        
+        function carregarUsuarios() {
+            fetch("http://localhost:8080/colaboradores")
+                .then(response => response.json())
+                .then(data => {
+                console.log(data); 
+                const tabela = document.querySelector("#tabela-usuarios tbody");
+                tabela.innerHTML = ""; // limpa antes de preencher
+
+                data.forEach(usuario => {
+                    const tr = document.createElement("tr");
+
+                    tr.innerHTML = `
+                    <td>${usuario.id}</td>
+                    <td>${usuario.nome}</td>
+                    <td>${usuario.cpf}</td>
+                    <td>${usuario.email}</td>
+                    <td>
+                        <button class="btn-editar" onclick="editarUsuario(${usuario.id})">✏️</button>
+                        <button class="btn-excluir" onclick="excluirUsuario(${usuario.id})">🗑️</button>
+                    </td>
+                    `;
+
+                    tabela.appendChild(tr);
+                });
+                })
+                .catch(error => {
+                console.error("Erro ao carregar usuários:", error);
+                });
+            }
+            function editarUsuario(id) {
+            alert("Editar usuário com ID " + id);
+            // Aqui você pode abrir um modal ou redirecionar para uma página de edição
+            }
+
+            function excluirUsuario(id) {
+            if (confirm("Tem certeza que deseja excluir o usuário com ID " + id + "?")) {
+                // Aqui você pode chamar a API para excluir o usuário e recarregar a lista
+                alert("Usuário " + id + " excluído (simulado).");
+                carregarUsuarios(); // Recarrega a tabela após exclusão
+            }
+            }
+            window.onload = carregarUsuarios;
+
+
+        
+    document.addEventListener("DOMContentLoaded", function () {
+          carregarLayoutBase();
+          document.getElementById("page-content").innerHTML = `
+            <h1>EPI Control</h1>
+            <p>Colaboradores Cadastrados</p>
+
+            <!-- Tabela -->
+            <div class="painel">
+                <input type="text" id="busca" placeholder="Buscar por ID..." class="input-busca" />
+                <button onclick="carregarUsuarios()">🔍</button>
+                <table id="tabela-usuarios">
+                <thead>
+                    <tr>
+                    <th style="width: 40px;">ID</th>
+                    <th style="width: 100px;">Nome</th>
+                    <th style="width: 80px;">CPF</th>
+                    <th style="width: 160px;">Email</th>
+                    <th style="width: 100px;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- As linhas serão preenchidas dinamicamente pelo JS -->
+                </tbody>
+                </table>
+                <button onclick="window.location.href='colaborador.html'">Novo Colaborador</button>
+            </div>
+            `;
+            carregarUsuarios();
+        });
+
+        
+
+      </script>
+</body>
+
